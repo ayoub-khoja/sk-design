@@ -3,6 +3,7 @@ import { Outfit, Plus_Jakarta_Sans } from "next/font/google";
 import { AnnouncementBar } from "@/components/layout/AnnouncementBar";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
+import { SITE } from "@/constants/site";
 import "./globals.css";
 
 const plusJakarta = Plus_Jakarta_Sans({
@@ -18,9 +19,19 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE.url),
   title: "SK Design — Impression & Publicité | Enseignes LED Tunisie",
   description:
     "Atelier SK Design : enseignes lumineuses LED, habillage façade, vitrophanie, plaques professionnelles et imprimerie numérique en Tunisie. Devis gratuit sous 2h.",
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    url: SITE.url,
+    siteName: SITE.name,
+    locale: "fr_TN",
+    type: "website",
+  },
   keywords: [
     "enseigne LED Tunisie",
     "impression grand format",

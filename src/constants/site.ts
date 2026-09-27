@@ -1,4 +1,5 @@
 export const SITE = {
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://skdesign.tn",
   name: "SK DESIGN",
   tagline: "IMPRESSION & PUB",
   taglineAr: "مطبعة رقمية",
