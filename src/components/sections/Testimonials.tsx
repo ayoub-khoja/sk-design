@@ -14,9 +14,9 @@ const AVATAR = [ACCENTS[0], ACCENTS[1], ACCENTS[2]];
 
 function Stars() {
   return (
-    <span className="flex gap-1 text-amber-400" aria-label="5 étoiles sur 5">
+    <span role="img" className="flex gap-1 text-amber-400" aria-label="5 étoiles sur 5">
       {Array.from({ length: 5 }).map((_, i) => (
-        <Star key={i} className="h-5 w-5 fill-current" />
+        <Star key={i} aria-hidden className="h-5 w-5 fill-current" />
       ))}
     </span>
   );

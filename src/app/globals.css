@@ -78,6 +78,42 @@ body {
   }
 }
 
+/*
+ * Entrée du hero en CSS pur : le texte est visible dès le premier affichage
+ * (seul le déplacement est animé, pas l'opacité). Sinon le navigateur attend
+ * le JavaScript pour afficher le contenu principal (LCP plus lent).
+ */
+@keyframes rise-in {
+  from {
+    transform: translateY(18px);
+  }
+  to {
+    transform: none;
+  }
+}
+@keyframes fade-rise-in {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.rise-in {
+  animation: rise-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.fade-rise-in {
+  animation: fade-rise-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .rise-in,
+  .fade-rise-in {
+    animation: none;
+  }
+}
+
 /* Ruban 4 couleurs (rappel des encres du logo) */
 .ink-ribbon {
   background: linear-gradient(

@@ -1,16 +1,17 @@
 import Image from "next/image";
 import Link from "next/link";
-import { FolderTree, Images, Plus, Globe } from "lucide-react";
-import { getDashboardStats } from "@/lib/data/admin";
+import { FileText, FolderTree, Images, Plus, Globe } from "lucide-react";
+import { countNewQuotes, getDashboardStats } from "@/lib/data/admin";
 import { publicImageUrl } from "@/lib/db/config";
 
 export default async function AdminDashboard() {
-  const stats = await getDashboardStats();
+  const [stats, newQuotes] = await Promise.all([getDashboardStats(), countNewQuotes()]);
 
   const cards = [
     { label: "Réalisations", value: stats.total, icon: Images, href: "/admin/realisations" },
     { label: "Publiées sur le site", value: stats.published, icon: Globe, href: "/admin/realisations" },
     { label: "Catégories", value: stats.categories, icon: FolderTree, href: "/admin/categories" },
+    { label: "Nouvelles demandes de devis", value: newQuotes, icon: FileText, href: "/admin/devis?statut=nouveau" },
   ];
 
   return (
@@ -33,7 +34,7 @@ export default async function AdminDashboard() {
         </Link>
       </div>
 
-      <div className="mt-6 grid gap-4 sm:grid-cols-3">
+      <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {cards.map(({ label, value, icon: Icon, href }) => (
           <Link key={label} href={href} className="admin-card transition hover:-translate-y-0.5">
             <Icon className="h-5 w-5 text-brand-600" />

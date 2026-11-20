@@ -7,6 +7,7 @@ import { InkSwoosh } from "@/components/ui/InkSwoosh";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { WHY_FEATURES } from "@/constants/content";
 import { PHOTOS } from "@/constants/photos";
+import { SITE } from "@/constants/site";
 import { accentAt } from "@/lib/accents";
 import { cn } from "@/lib/utils";
 
@@ -18,6 +19,8 @@ const ICONS = {
 };
 
 export function WhyUs() {
+  const years = new Date().getFullYear() - SITE.foundedYear;
+
   return (
     <section id="pourquoi" className="relative scroll-mt-24 overflow-hidden bg-[#fbf9f9] py-12 lg:py-16">
       <InkSwoosh className="-right-16 bottom-0 h-44 w-[50%] opacity-60" />
@@ -34,6 +37,12 @@ export function WhyUs() {
               sizes="(max-width: 1024px) 90vw, 40vw"
               className="object-cover"
             />
+            <div className="absolute left-4 top-4 flex h-24 w-24 rotate-2 flex-col items-center justify-center rounded-full bg-brand-600 text-center text-white shadow-xl ring-4 ring-white/80">
+              <span className="text-[10px] font-bold uppercase tracking-[0.14em]">Depuis</span>
+              <span className="font-[family-name:var(--font-outfit)] text-2xl font-extrabold leading-none">
+                {SITE.foundedYear}
+              </span>
+            </div>
             <div className="absolute inset-x-4 bottom-4 flex items-start gap-3 rounded-2xl bg-zinc-950/85 p-4 text-white backdrop-blur">
               <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-brand-500" />
               <span className="leading-snug">
@@ -51,7 +60,7 @@ export function WhyUs() {
         <div>
           <AnimateIn>
             <SectionHeading
-              eyebrow="Pourquoi SK Design"
+              eyebrow={`À propos · Depuis ${SITE.foundedYear}`}
               title={
                 <>
                   Un seul interlocuteur,
@@ -60,8 +69,25 @@ export function WhyUs() {
                 </>
               }
               underline
-              lede="Production 100 % atelier, contrôle qualité à chaque étape et suivi direct avec l'équipe qui fabrique votre projet."
+              lede={`Depuis ${SITE.foundedYear}, notre atelier de Sayada conçoit, imprime et pose enseignes, vitrines et supports publicitaires pour les commerces et entreprises de toute la Tunisie : production 100 % atelier, contrôle qualité à chaque étape et suivi direct avec l'équipe qui fabrique votre projet.`}
             />
+          </AnimateIn>
+
+          <AnimateIn delay={0.05}>
+            <dl className="mt-8 grid grid-cols-3 divide-x divide-zinc-200 rounded-2xl bg-white py-4 shadow-[0_20px_50px_-35px_rgba(9,9,11,0.35)] ring-1 ring-zinc-100">
+              {[
+                { value: String(SITE.foundedYear), label: "Création de l'atelier" },
+                { value: `${years} ans`, label: "d'expérience" },
+                { value: "100 %", label: "fabriqué en atelier" },
+              ].map((stat) => (
+                <div key={stat.label} className="flex flex-col-reverse items-center px-2 text-center">
+                  <dt className="mt-1 text-xs leading-tight text-zinc-600 sm:text-sm">{stat.label}</dt>
+                  <dd className="font-[family-name:var(--font-outfit)] text-2xl font-extrabold text-brand-600 sm:text-3xl">
+                    {stat.value}
+                  </dd>
+                </div>
+              ))}
+            </dl>
           </AnimateIn>
 
           <div className="mt-10 grid gap-5 sm:grid-cols-2">

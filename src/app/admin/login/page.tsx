@@ -6,13 +6,23 @@ import { SITE } from "@/constants/site";
 import { isDbConfigured } from "@/lib/db/config";
 
 export const metadata: Metadata = {
-  title: "Connexion — Espace admin | SK Design",
+  title: { absolute: "Connexion — Espace admin | SK Design" },
   robots: { index: false, follow: false },
 };
 
 export default async function LoginPage() {
   // Lu à chaque requête : la configuration peut changer après le build.
   await connection();
+
+  if (!isDbConfigured) {
+    console.error(
+      "[admin] Variables d'environnement manquantes :",
+      [!process.env.MONGODB_URI && "MONGODB_URI", !process.env.SESSION_SECRET && "SESSION_SECRET"]
+        .filter(Boolean)
+        .join(", "),
+      "— à ajouter chez l'hébergeur, puis redéployer (voir docs/mongodb.md).",
+    );
+  }
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-slate-100 px-4 py-12">
@@ -35,13 +45,22 @@ export default async function LoginPage() {
 
         {isDbConfigured ? (
           <LoginForm />
+        ) : process.env.NODE_ENV === "production" ? (
+          // En ligne : message neutre pour les visiteurs ; la cause exacte
+          // est écrite dans les journaux de l'hébergeur (voir plus haut).
+          <div className="rounded-2xl border border-amber-200 bg-amber-50 p-5 text-sm text-amber-900">
+            <p className="font-semibold">Espace admin momentanément indisponible</p>
+            <p className="mt-2">Réessayez dans quelques minutes.</p>
+          </div>
         ) : (
           <div className="rounded-2xl border border-amber-200 bg-amber-50 p-5 text-sm text-amber-900">
             <p className="font-semibold">Base de données non configurée</p>
             <p className="mt-2">
               Ajoutez <code>MONGODB_URI</code> et <code>SESSION_SECRET</code>{" "}
               dans <code>.env.local</code>, puis redémarrez{" "}
-              <code>npm run dev</code>. Voir <code>docs/mongodb.md</code>.
+              <code>npm run dev</code>. En ligne, ajoutez-les dans les
+              variables d&apos;environnement de l&apos;hébergeur. Voir{" "}
+              <code>docs/mongodb.md</code>.
             </p>
           </div>
         )}

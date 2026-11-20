@@ -62,7 +62,7 @@ export function Footer() {
                 <span className="block text-lg font-extrabold tracking-tight text-white">
                   {SITE.name}
                 </span>
-                <span className="block text-[10px] font-semibold uppercase tracking-[0.14em] text-zinc-500">
+                <span className="block text-[10px] font-semibold uppercase tracking-[0.14em] text-zinc-400">
                   {SITE.tagline} · {SITE.taglineAr}
                 </span>
               </span>
@@ -74,7 +74,7 @@ export function Footer() {
             </p>
             <p className="mt-5 flex items-center gap-2 text-sm">
               <MapPin className="h-4 w-4 shrink-0 text-brand-500" />
-              {SITE.location}
+              {SITE.address.postalCode} {SITE.address.city}, {SITE.address.region} · Pose partout en Tunisie
             </p>
             <SocialLinks tone="dark" withWhatsApp className="mt-6" />
           </div>
@@ -134,7 +134,7 @@ export function Footer() {
                 <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-brand-600/15 text-brand-500"><Clock className="h-[18px] w-[18px]" /></span>
                 <span>
                   <span className="font-semibold text-white">{SITE.hours}</span>
-                  <span className="mt-0.5 block text-xs text-zinc-500">
+                  <span className="mt-0.5 block text-xs text-zinc-400">
                     {SITE.sunday} · {SITE.hoursNote}
                   </span>
                 </span>
@@ -143,7 +143,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="flex flex-col gap-3 border-t border-white/10 py-6 text-xs text-zinc-500 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex flex-col gap-3 border-t border-white/10 py-6 text-xs text-zinc-400 sm:flex-row sm:items-center sm:justify-between">
           <p>
             © {year} {SITE.name} — {SITE.taglineAr} · Imprimerie &amp; Publicité.
             Tous droits réservés.
@@ -180,9 +180,9 @@ function SocialFollowButtons() {
             </span>
             <span className="leading-tight">
               <span className="block font-semibold text-white">{s.label}</span>
-              <span className="block text-xs text-zinc-500">{s.handle}</span>
+              <span className="block text-xs text-zinc-400">{s.handle}</span>
             </span>
-            <ArrowUpRight className="h-4 w-4 text-zinc-500 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-white" />
+            <ArrowUpRight className="h-4 w-4 text-zinc-400 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-white" />
           </a>
         </li>
       ))}

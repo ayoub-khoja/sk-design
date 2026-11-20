@@ -1,7 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Clock, Mail, MapPin, Phone } from "lucide-react";
+import { Clock, Mail, MapPin, Phone, SquarePen } from "lucide-react";
+import Link from "next/link";
 import Image from "next/image";
 import { AnimateIn } from "@/components/ui/AnimateIn";
 import { Hl } from "@/components/ui/Highlight";
@@ -97,11 +98,18 @@ export function ContactCTA() {
                 </p>
 
                 <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+                  <Link
+                    href="/devis"
+                    className="inline-flex items-center justify-center gap-2.5 rounded-xl bg-brand-600 px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-brand-600/25 transition hover:-translate-y-0.5 hover:bg-brand-700"
+                  >
+                    <SquarePen className="h-4 w-4" />
+                    Demander un devis
+                  </Link>
                   <a
                     href={wa}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center gap-2.5 rounded-xl bg-[#25D366] px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-emerald-500/20 transition hover:-translate-y-0.5 hover:bg-[#1ebe57]"
+                    className="inline-flex items-center justify-center gap-2.5 rounded-xl bg-[#15803d] px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-emerald-500/20 transition hover:-translate-y-0.5 hover:bg-[#166534]"
                   >
                     <WhatsAppIcon className="h-4 w-4" />
                     WhatsApp : {SITE.phones[0]}
@@ -136,7 +144,7 @@ export function ContactCTA() {
                 </div>
               </motion.div>
 
-              <motion.dl
+              <motion.ul
                 initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -144,20 +152,20 @@ export function ContactCTA() {
                 className="divide-y divide-zinc-100 rounded-[1.5rem] bg-white p-2 shadow-2xl"
               >
                 {info.map(({ icon: Icon, label, content, note }) => (
-                  <div key={label} className="flex items-start gap-4 p-4">
-                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-brand-50 text-brand-600">
+                  <li key={label} className="flex items-start gap-4 p-4">
+                    <span aria-hidden className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-brand-50 text-brand-600">
                       <Icon className="h-[18px] w-[18px]" />
                     </span>
                     <div className="min-w-0">
-                      <dt className="text-[11px] font-semibold uppercase tracking-[0.12em] text-zinc-400">
+                      <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-zinc-600">
                         {label}
-                      </dt>
-                      <dd className="mt-1 text-sm font-semibold text-zinc-900">{content}</dd>
-                      {note && <dd className="mt-0.5 text-xs text-zinc-500">{note}</dd>}
+                      </p>
+                      <div className="mt-1 text-sm font-semibold text-zinc-900">{content}</div>
+                      {note && <p className="mt-0.5 text-xs text-zinc-600">{note}</p>}
                     </div>
-                  </div>
+                  </li>
                 ))}
-              </motion.dl>
+              </motion.ul>
             </div>
           </div>
           </div>

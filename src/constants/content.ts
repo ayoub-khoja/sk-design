@@ -92,17 +92,14 @@ export const FOOTER_SERVICES = [
 ] as const;
 
 /** Clients visibles sur les photos de réalisations (bandeau « Ils nous font confiance »). */
-export const CLIENTS = [
-  "EuroCar",
-  "Oliveto",
-  "Alarabia.com.tn",
-  "GymHouse Sayada",
-  "Med Amine Aluminium",
-  "Ghouila Travel",
-  "Eco-Bio Spirulina",
-  "Tunisian School in Doha",
-  "Rose Blanche Group",
-  "Big JJ",
-  "Bsissa El Kasr",
-  "Fares Food",
+
+/** Logos clients (public/clients) pour le bandeau « Ils nous font confiance ». */
+export const CLIENT_LOGOS = [
+  { name: "Ghouila Travel", src: "/clients/ghouila-travel.webp", width: 360, height: 108 },
+  { name: "Alarabia.com.tn", src: "/clients/alarabia.webp", width: 360, height: 360, fill: true },
+  { name: "Fares Food", src: "/clients/fares-food.webp", width: 360, height: 129 },
+  { name: "GymHouse Sayada", src: "/clients/gymhouse-sayada.webp", width: 360, height: 359, fill: true },
+  { name: "Eurochange", src: "/clients/eurochange.webp", width: 360, height: 360 },
+  { name: "Alu Med Amine", src: "/clients/alu-med-amine.webp", width: 360, height: 197 },
+  { name: "Guerfel Achref Rent a Car", src: "/clients/guerfel-achref-rent-a-car.webp", width: 400, height: 240, fill: true, bg: "#1a1f31" },
 ] as const;

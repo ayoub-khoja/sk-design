@@ -3,7 +3,9 @@ export const SITE = {
   name: "SK DESIGN",
   tagline: "IMPRESSION & PUB",
   taglineAr: "مطبعة رقمية",
-  logo: "/logo.jpg",
+  logo: "/logo.png",
+  /** Année de création de l'atelier (mise en avant dans « À propos ») */
+  foundedYear: 2013,
   email: "Sk.Design11@outlook.com",
   phones: ["26 986 526", "97 915 190"],
   hours: "Lundi au Samedi : 08:30 - 19:00",
@@ -53,7 +55,7 @@ export const NAV_LINKS = [
   { label: "Accueil", href: "/" },
   { label: "Réalisations", href: "/realisations" },
   { label: "À propos", href: "/#pourquoi" },
-  { label: "Contact", href: "/#contact" },
+  { label: "Contact", href: "/contact" },
 ] as const;
 
 export const WHATSAPP_MESSAGE =

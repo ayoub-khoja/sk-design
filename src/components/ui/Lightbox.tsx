@@ -231,7 +231,7 @@ function LightboxDialog({
               href={cta.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex shrink-0 items-center justify-center gap-2 rounded-xl bg-[#25D366] px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-[#1ebe57]"
+              className="inline-flex shrink-0 items-center justify-center gap-2 rounded-xl bg-[#15803d] px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-[#166534]"
             >
               <MessageCircle className="h-4 w-4" />
               {cta.label}
