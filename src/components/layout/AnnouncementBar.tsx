@@ -6,7 +6,7 @@ import { telHref } from "@/lib/utils";
 
 export function AnnouncementBar() {
   return (
-    <div className="bg-zinc-950 text-[12px] text-zinc-300">
+    <aside aria-label="Informations pratiques" className="bg-zinc-950 text-[12px] text-zinc-300">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-2 lg:px-6">
         <div className="flex min-w-0 items-center gap-4">
           <OpenStatus className="shrink-0 font-medium text-zinc-200" />
@@ -30,6 +30,6 @@ export function AnnouncementBar() {
           <SocialLinks tone="dark" size="sm" />
         </div>
       </div>
-    </div>
+    </aside>
   );
 }

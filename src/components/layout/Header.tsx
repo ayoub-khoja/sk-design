@@ -43,10 +43,8 @@ export function Header({ menuCategories }: { menuCategories: MenuCategory[] }) {
     (href === "/" ? pathname === "/" : pathname.startsWith(href));
 
   return (
-    <motion.header
-      initial={{ y: -24, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+    // Visible dès le premier affichage (pas d'attente du JavaScript).
+    <header
       className="sticky top-0 z-50 border-b border-zinc-200/70 bg-white/90 shadow-[0_8px_30px_-20px_rgba(9,9,11,0.25)] backdrop-blur-xl"
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 lg:px-6">
@@ -143,7 +141,7 @@ export function Header({ menuCategories }: { menuCategories: MenuCategory[] }) {
             <WhatsAppIcon className="h-4 w-4 text-[#25D366]" />
             WhatsApp
           </Button>
-          <Button href="/#contact" className="!px-4 !py-2.5 whitespace-nowrap">
+          <Button href="/devis" className="!px-4 !py-2.5 whitespace-nowrap">
             <SquarePen className="h-4 w-4" />
             Demander un Devis Gratuit
           </Button>
@@ -208,7 +206,7 @@ export function Header({ menuCategories }: { menuCategories: MenuCategory[] }) {
                 <WhatsAppIcon className="h-4 w-4 text-[#25D366]" />
                 WhatsApp
               </Button>
-              <Button href="/#contact" className="w-full">
+              <Button href="/devis" onClick={() => setOpen(false)} className="w-full">
                 Demander un Devis Gratuit
               </Button>
               <div className="mt-4 flex items-center justify-between border-t border-zinc-100 pt-4">
@@ -219,6 +217,6 @@ export function Header({ menuCategories }: { menuCategories: MenuCategory[] }) {
           </motion.div>
         )}
       </AnimatePresence>
-    </motion.header>
+    </header>
   );
 }

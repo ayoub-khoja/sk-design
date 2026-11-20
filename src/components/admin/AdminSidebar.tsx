@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
   ExternalLink,
+  FileText,
   FolderTree,
   Images,
   LayoutDashboard,
@@ -19,10 +20,11 @@ const LINKS = [
   { href: "/admin", label: "Tableau de bord", icon: LayoutDashboard },
   { href: "/admin/realisations", label: "Réalisations", icon: Images },
   { href: "/admin/categories", label: "Catégories", icon: FolderTree },
+  { href: "/admin/devis", label: "Demandes de devis", icon: FileText },
   { href: "/admin/compte", label: "Mon compte", icon: UserCog },
 ] as const;
 
-export function AdminSidebar({ email }: { email: string }) {
+export function AdminSidebar({ email, newQuotes = 0 }: { email: string; newQuotes?: number }) {
   const pathname = usePathname();
 
   return (
@@ -58,6 +60,14 @@ export function AdminSidebar({ email }: { email: string }) {
             >
               <Icon className="h-4 w-4" />
               {label}
+              {href === "/admin/devis" && newQuotes > 0 && (
+                <span
+                  className="ml-auto rounded-full bg-brand-600 px-2 py-0.5 text-[11px] font-bold text-white"
+                  aria-label={`${newQuotes} nouvelle(s)`}
+                >
+                  {newQuotes}
+                </span>
+              )}
             </Link>
           );
         })}

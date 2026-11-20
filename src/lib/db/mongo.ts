@@ -73,11 +73,33 @@ export type RealisationDoc = {
   updatedAt: Date;
 };
 
+export const QUOTE_STATUSES = ["nouveau", "en-cours", "traite"] as const;
+export type QuoteStatus = (typeof QUOTE_STATUSES)[number];
+
+/** Demande de devis envoyée depuis la page /devis du site. */
+export type QuoteDoc = {
+  _id: ObjectId;
+  name: string;
+  phone: string;
+  email: string;
+  company: string;
+  city: string;
+  service: string;
+  details: string;
+  dimensions: string;
+  quantity: string;
+  deadline: string;
+  installation: string;
+  status: QuoteStatus;
+  createdAt: Date;
+};
+
 export async function collections() {
   const db = await getDb();
   return {
     admins: db.collection<AdminDoc>("admins"),
     categories: db.collection<CategoryDoc>("categories"),
     realisations: db.collection<RealisationDoc>("realisations"),
+    quotes: db.collection<QuoteDoc>("quotes"),
   };
 }

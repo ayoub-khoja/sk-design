@@ -22,7 +22,7 @@ const variants = {
     "bg-white text-zinc-900 border border-zinc-300 hover:border-zinc-950",
   dark: "bg-white/10 text-white border border-white/20 hover:bg-white/15 backdrop-blur",
   whatsapp:
-    "bg-[#25D366] text-white hover:bg-[#1ebe57] shadow-lg shadow-emerald-500/20",
+    "bg-[#15803d] text-white hover:bg-[#166534] shadow-lg shadow-emerald-500/20",
 };
 
 export function Button({
@@ -44,7 +44,7 @@ export function Button({
 
   if (href) {
     return (
-      <Link href={href} className={classes} target={target} rel={rel} aria-label={ariaLabel}>
+      <Link href={href} className={classes} target={target} rel={rel} aria-label={ariaLabel} onClick={onClick}>
         {children}
       </Link>
     );

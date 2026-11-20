@@ -3,7 +3,7 @@ import { LegalPage, LegalSection } from "@/components/layout/LegalPage";
 import { SITE } from "@/constants/site";
 
 export const metadata: Metadata = {
-  title: "Politique de confidentialité | SK Design",
+  title: "Politique de confidentialité",
   description: "Comment SK Design traite vos données lorsque vous utilisez le site.",
   alternates: { canonical: "/confidentialite" },
 };
@@ -17,9 +17,24 @@ export default function ConfidentialitePage() {
     >
       <LegalSection title="En résumé">
         <p>
-          Ce site ne vous demande pas de créer de compte et ne contient pas de
-          formulaire qui enregistre vos données. Il n&apos;utilise ni publicité
-          ni outil de suivi.
+          Ce site ne vous demande pas de créer de compte et n&apos;utilise ni
+          publicité ni outil de suivi. Seul le formulaire de demande de devis
+          enregistre les informations que vous y saisissez, pour vous répondre.
+        </p>
+      </LegalSection>
+
+      <LegalSection title="Formulaire de demande de devis">
+        <p>
+          Lorsque vous envoyez le formulaire de la page « Devis », nous
+          enregistrons votre nom, votre téléphone, et si vous les indiquez votre
+          email, votre société, votre ville et la description de votre projet.
+          Ces informations sont réservées à l&apos;équipe SK Design, servent
+          uniquement à établir votre devis et ne sont ni vendues ni cédées à des
+          tiers. Pour les faire supprimer, écrivez-nous à{" "}
+          <a href={`mailto:${SITE.email}`} className="font-medium text-zinc-900 underline-offset-4 hover:underline">
+            {SITE.email}
+          </a>
+          .
         </p>
       </LegalSection>
 

@@ -11,9 +11,9 @@ import { getPublishedCatalog } from "@/lib/data/catalog";
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
-  title: "Nos Réalisations & Services | SK Design",
+  title: "Réalisations : enseignes LED, vitrines et impression grand format",
   description:
-    "Galerie photo des réalisations et services SK Design : enseignes lumineuses, habillage de vitrines, covering, plaques, PLV, textile et objets personnalisés en Tunisie.",
+    "Photos réelles de nos réalisations : enseignes lumineuses LED, habillage de vitrines, marquage de véhicules, impression grand format, plaques, PLV, textile et objets personnalisés. Atelier SK Design à Sayada, Monastir.",
   alternates: { canonical: "/realisations" },
 };
 

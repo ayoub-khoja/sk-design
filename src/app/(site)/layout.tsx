@@ -1,6 +1,7 @@
 import { AnnouncementBar } from "@/components/layout/AnnouncementBar";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
+import { BackToTop } from "@/components/ui/BackToTop";
 import { InkRibbon } from "@/components/ui/InkRibbon";
 import { SITE, SOCIAL_LINKS } from "@/constants/site";
 import { getMenuCategories } from "@/lib/data/catalog";
@@ -10,7 +11,22 @@ const businessJsonLd = {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
   name: "SK Design",
-  description: "Impression numérique et publicité : enseignes, vitrines, plaques, PLV et objets personnalisés.",
+  alternateName: "SK Design Impression & Pub",
+  description:
+    "Atelier d'impression numérique et de publicité à Sayada (Monastir) : enseignes lumineuses LED, habillage de vitrines, impression grand format, PLV, plaques et objets publicitaires.",
+  slogan: "Donnez de la visibilité à votre activité.",
+  foundingDate: String(SITE.foundedYear),
+  knowsAbout: [
+    "Enseignes lumineuses LED",
+    "Caissons lumineux",
+    "Habillage de vitrines et vitrophanie",
+    "Marquage de véhicules",
+    "Impression grand format",
+    "PLV : roll-up, beach flags, présentoirs",
+    "Plaques professionnelles et trophées",
+    "Objets publicitaires personnalisés",
+    "Textile personnalisé",
+  ],
   url: SITE.url,
   logo: `${SITE.url}${SITE.logo}`,
   image: `${SITE.url}${SITE.logo}`,
@@ -57,6 +73,7 @@ export default async function SiteLayout({
       <Header menuCategories={menuCategories} />
       <main className="flex-1">{children}</main>
       <Footer />
+      <BackToTop />
     </>
   );
 }

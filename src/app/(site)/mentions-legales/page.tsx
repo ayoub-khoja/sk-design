@@ -4,7 +4,7 @@ import { SITE, SOCIAL_LINKS } from "@/constants/site";
 import { telHref } from "@/lib/utils";
 
 export const metadata: Metadata = {
-  title: "Mentions légales | SK Design",
+  title: "Mentions légales",
   description: "Mentions légales du site SK Design — Impression & Publicité.",
   alternates: { canonical: "/mentions-legales" },
 };

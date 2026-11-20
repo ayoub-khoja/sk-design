@@ -208,7 +208,7 @@ function CategoryChip({
       <span
         className={cn(
           "rounded-md px-1.5 py-0.5 text-[11px] font-bold tabular-nums",
-          active ? "bg-white/25" : "bg-zinc-100 text-zinc-500",
+          active ? "bg-black/25" : "bg-zinc-100 text-zinc-600",
         )}
       >
         {count}

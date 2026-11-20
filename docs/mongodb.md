@@ -11,7 +11,7 @@ avec le catalogue de `src/constants/services.ts`.
 
 | Qui | Comment | Pour quoi faire |
 |---|---|---|
-| Le client (admin) | `https://skdesign.tn/admin` + email / mot de passe | Ajouter, modifier, supprimer réalisations, catégories et photos |
+| Le client (admin) | `https://www.skdesign.tn/admin` + email / mot de passe | Ajouter, modifier, supprimer réalisations, catégories et photos |
 | Les développeurs | Site **MongoDB Atlas** → *Browse Collections* | Voir ou corriger les données, sauvegardes |
 | Les développeurs | Logiciel **MongoDB Compass** (gratuit) | Pareil, depuis le PC |
 | Le site | Variable `MONGODB_URI` | Lire le catalogue et enregistrer les modifications |
@@ -91,9 +91,35 @@ Ouvrez <http://localhost:3000/admin> et connectez-vous.
 
 ## En production
 
-Ajoutez `MONGODB_URI`, `MONGODB_DB` et `SESSION_SECRET` dans les variables
-d'environnement de l'hébergeur. Le site se met à jour dès qu'une réalisation
-est modifiée dans `/admin`.
+Le fichier `.env.local` n'est **jamais** envoyé sur GitHub (il contient le mot
+de passe de la base). Le serveur en ligne ne le connaît donc pas : sans les
+étapes ci-dessous, `/admin` affiche « Espace admin momentanément
+indisponible » et la page Réalisations montre l'ancien catalogue intégré au
+code au lieu de celui de la base.
+
+1. **Variables d'environnement** — dans le tableau de bord de l'hébergeur
+   (ex. Vercel : *Project → Settings → Environment Variables*, environnement
+   *Production*), ajoutez :
+
+   | Nom | Valeur |
+   | --- | --- |
+   | `MONGODB_URI` | la chaîne de connexion Atlas. En ligne, la forme courte `mongodb+srv://…` fonctionne. |
+   | `MONGODB_DB` | `skdesign` |
+   | `SESSION_SECRET` | une longue chaîne aléatoire, **différente** de celle de `.env.local` (ex. `node -e "console.log(require('crypto').randomBytes(48).toString('base64url'))"`) |
+
+   `ADMIN_EMAIL` / `ADMIN_PASSWORD` ne sont **pas** nécessaires en ligne : le
+   compte admin est déjà dans la base.
+2. **Accès réseau Atlas** — *Security → Network Access → Add IP Address →*
+   `0.0.0.0/0` (*Allow access from anywhere*) : les serveurs de l'hébergeur
+   changent d'adresse IP. Le mot de passe de la base devient alors la seule
+   protection : changez-le s'il a déjà été montré (captures d'écran…), puis
+   mettez à jour `MONGODB_URI` partout.
+3. **Redéployer** le site (ex. Vercel : *Deployments → … → Redeploy*) : les
+   variables ne sont lues qu'au démarrage.
+4. Vérifier : `/admin/login` affiche le formulaire de connexion, et la page
+   Réalisations montre les mêmes projets que l'admin.
+
+Le site se met ensuite à jour dès qu'une réalisation est modifiée dans `/admin`.
 
 ## Sauvegardes
 
@@ -104,7 +130,9 @@ ou en ligne de commande `mongodump --uri="<MONGODB_URI>"`.
 ## Contenu de la base
 
 - `admins` : le compte admin (mot de passe chiffré avec bcrypt).
-- `categories` : les catégories (filtres de la page Services).
+- `categories` : les catégories (filtres de la page Réalisations et menu).
 - `realisations` : les réalisations, avec la liste de leurs photos.
+- `quotes` : les demandes de devis envoyées depuis la page `/devis`
+  (visibles dans `/admin/devis`).
 - `photos.files` / `photos.chunks` : les fichiers photo (GridFS).
   Ne pas les modifier à la main.

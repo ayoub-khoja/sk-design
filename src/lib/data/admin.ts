@@ -1,5 +1,5 @@
 import "server-only";
-import { toObjectId } from "@/lib/db/mongo";
+import { toObjectId, type QuoteStatus } from "@/lib/db/mongo";
 import { requireAdmin } from "./auth";
 import {
   CATEGORY_SORT,
@@ -53,4 +53,45 @@ export async function getDashboardStats() {
   ]);
 
   return { total, published, categories, latest: latest.map(toRealisation) };
+}
+
+// ─── Demandes de devis ──────────────────────────────────────────────────
+
+export type AdminQuote = {
+  id: string;
+  name: string;
+  phone: string;
+  email: string;
+  company: string;
+  city: string;
+  service: string;
+  details: string;
+  dimensions: string;
+  quantity: string;
+  deadline: string;
+  installation: string;
+  status: QuoteStatus;
+  createdAt: string;
+};
+
+export async function listQuotes(status?: QuoteStatus) {
+  const { db } = await requireAdmin();
+  const docs = await db.quotes
+    .find(status ? { status } : {})
+    .sort({ createdAt: -1 })
+    .limit(300)
+    .toArray();
+  return docs.map(
+    ({ _id, createdAt, ...rest }): AdminQuote => ({
+      ...rest,
+      id: _id.toHexString(),
+      createdAt: createdAt.toISOString(),
+    }),
+  );
+}
+
+/** Nombre de demandes non traitées (badge du menu admin). */
+export async function countNewQuotes() {
+  const { db } = await requireAdmin();
+  return db.quotes.countDocuments({ status: "nouveau" });
 }

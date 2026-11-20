@@ -65,7 +65,8 @@ async function loadPublishedCatalog(): Promise<Catalog> {
           .sort((a, b) => a.sortOrder - b.sortOrder)
           .map((img) => ({
             src: publicImageUrl(img.fileId.toHexString()),
-            alt: img.alt || r.title,
+            // Texte alternatif descriptif (référencement Google Images)
+            alt: img.alt || `${r.title} – ${nameOf.get(r.categoryId.toHexString()) ?? "réalisation"} par SK Design, Sayada`,
           })),
       })),
     };

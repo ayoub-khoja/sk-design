@@ -1,5 +1,6 @@
 "use client";
 
+import { motion } from "framer-motion";
 import { Factory, MonitorSmartphone, Ruler, Truck } from "lucide-react";
 import { AnimateIn } from "@/components/ui/AnimateIn";
 import { Hl } from "@/components/ui/Highlight";
@@ -30,15 +31,22 @@ export function Process() {
           />
         </AnimateIn>
 
-        <ol className="relative mt-14 grid gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
+        <div className="relative mt-14">
           {/* Fil qui relie les numéros (grand écran) */}
           <span aria-hidden className="ink-ribbon absolute left-[12.5%] right-[12.5%] top-0 hidden h-0.5 opacity-70 lg:block" />
+        <ol className="relative grid gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
           {STEPS.map((step, i) => {
             const accent = accentAt(i);
             const Icon = STEP_ICONS[i] ?? Factory;
             return (
-              <AnimateIn key={step.n} delay={0.08 * i} className="h-full">
-                <li className="relative h-full pt-7">
+              <motion.li
+                key={step.n}
+                className="relative h-full pt-7"
+                initial={{ opacity: 0, y: 28 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ duration: 0.55, delay: 0.08 * i, ease: [0.22, 1, 0.36, 1] }}
+              >
                   <span
                     className={cn(
                       "absolute left-1/2 top-0 z-10 flex h-14 w-14 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-2xl font-[family-name:var(--font-outfit)] text-xl font-extrabold shadow-lg ring-4 ring-white",
@@ -54,18 +62,18 @@ export function Process() {
                     <h3 className="mt-6 font-[family-name:var(--font-outfit)] text-lg font-bold text-zinc-950">
                       {step.title}
                     </h3>
-                    <p className="mt-3 text-sm leading-relaxed text-zinc-500">{step.text}</p>
+                    <p className="mt-3 text-sm leading-relaxed text-zinc-600">{step.text}</p>
                     {/* Coin coloré */}
                     <span
                       aria-hidden
                       className={cn("absolute -bottom-10 -right-10 h-24 w-32 rotate-[-18deg] rounded-[50%]", accent.bar)}
                     />
                   </div>
-                </li>
-              </AnimateIn>
+              </motion.li>
             );
           })}
         </ol>
+        </div>
       </div>
     </section>
   );
