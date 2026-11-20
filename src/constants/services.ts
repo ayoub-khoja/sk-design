@@ -1,126 +1,246 @@
+import { PHOTOS } from "./photos";
+
 export type WorkCategory =
   | "enseignes"
   | "habillage"
+  | "grand-format"
   | "plaques"
+  | "plv"
   | "edition"
-  | "tampons";
+  | "impression"
+  | "textile"
+  | "objets";
 
-export const WORK_FILTERS: { id: "all" | WorkCategory; label: string }[] = [
-  { id: "all", label: "Tous nos travaux" },
-  { id: "enseignes", label: "Enseignes Lumineuses & Caissons" },
-  { id: "habillage", label: "Habillage Vitrine & Façade" },
-  { id: "plaques", label: "Plaques & Signalétique" },
+export const WORK_CATEGORIES: { id: WorkCategory; label: string }[] = [
+  { id: "enseignes", label: "Enseignes Lumineuses & Façades" },
+  { id: "habillage", label: "Habillage Vitrine & Véhicules" },
+  { id: "grand-format", label: "Bâches & Grand Format" },
+  { id: "plaques", label: "Plaques & Trophées" },
+  { id: "plv", label: "PLV & Présentoirs" },
   { id: "edition", label: "Édition & Scolaire Sur-Mesure" },
-  { id: "tampons", label: "Tampons & Objets" },
+  { id: "impression", label: "Cartes, Étiquettes & Stickers" },
+  { id: "textile", label: "Textile Personnalisé" },
+  { id: "objets", label: "Porte-clés, Tampons & Objets" },
 ];
 
-const IMG = {
-  signs:
-    "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=1200&q=80",
-  store:
-    "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=900&q=80",
-  facade:
-    "https://images.unsplash.com/photo-1441984904996-e0b692c2ad91?auto=format&fit=crop&w=1200&q=80",
-  shop:
-    "https://images.unsplash.com/photo-1604719312566-8912e9227c6a?auto=format&fit=crop&w=900&q=80",
-  office:
-    "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1000&q=80",
-  notebook:
-    "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=1000&q=80",
-  school:
-    "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1000&q=80",
-} as const;
+type Photo = { src: string; alt: string };
 
-export const FEATURED_WORKS = [
+export type Work = {
+  id: string;
+  category: WorkCategory;
+  title: string;
+  description: string;
+  /** Mis en avant en tête de sa catégorie */
+  featured?: boolean;
+  /** La première photo est la photo principale */
+  images: readonly Photo[];
+};
+
+/**
+ * Catalogue par défaut : affiché tant que la base n'est pas branchée,
+ * et importé dans MongoDB par scripts/seed.mjs.
+ */
+export const WORKS: readonly Work[] = [
   {
     id: "caisson",
-    category: "enseignes" as const,
-    chips: ["Caisson Lumineux LED", "Plexiglas Diffusant"],
-    images: [
-      { src: IMG.signs, alt: "Caissons lumineux Western Union et MoneyGram" },
-      { src: IMG.store, alt: "Pose enseigne lumineuse en vitrine" },
-    ],
-    kicker: "Enseigne institutionnelle • Agences de transfert",
-    title: "Caisson Lumineux Multi-Réseaux : Western Union, Ria & MoneyGram",
+    category: "enseignes",
+    title: "Caissons Lumineux LED & Enseignes de Façade",
     description:
-      "Fabrication complète sur mesure en plexiglas opale thermoformé avec profilé laqué noir mat et châssis aluminium. Éclairage haute puissance modules LED Samsung étanches IP65 pour une visibilité jour/nuit infaillible.",
-    tags: [
-      "Plexi 4mm Coulé",
-      "Adhésif Translucide Avery",
-      "Pose murale sécurisée",
-      "Garantie 2 ans",
+      "Caissons en plexiglas opale avec modules LED étanches, pour une visibilité de jour comme de nuit, et lettres découpées en relief pour les façades.",
+    featured: true,
+    images: [
+      { src: PHOTOS.caissonCremerie, alt: "Caisson lumineux LED rond pour une crèmerie" },
+      { src: PHOTOS.facadeCentreFormation, alt: "Façade et lettres en relief — Centre de formation" },
+      { src: PHOTOS.caissonConfiserie, alt: "Caisson lumineux intérieur pour une confiserie" },
     ],
-    reference: "#EN-2024-WU",
-    cta: "Devis Immédiat",
-    ctaVariant: "red" as const,
+  },
+  {
+    id: "enseignes-boutiques",
+    category: "enseignes",
+    title: "Enseignes Lumineuses de Boutiques",
+    description:
+      "Enseignes de devanture éclairées pour commerces et supérettes : lettres lumineuses, logo et coordonnées bien visibles depuis la rue.",
+    images: [
+      { src: PHOTOS.enseigneShinePlus, alt: "Enseigne lumineuse de la boutique Shine Plus" },
+      { src: PHOTOS.enseigneJadou, alt: "Enseigne en lettres lumineuses et bâche imprimée — Supérette Jadou" },
+    ],
   },
   {
     id: "vitrine",
-    category: "habillage" as const,
-    chips: ["Vitrophanie Intégrale", "Vinyle Polymère"],
-    images: [
-      { src: IMG.facade, alt: "Habillage vitrine commerce" },
-      { src: IMG.shop, alt: "Vinyle microperforé façade" },
-    ],
-    kicker: "Habillage commercial • Façades & vitrines",
-    title: "Habillage Vitrine & Façade en Vinyle Polymère",
+    category: "habillage",
+    title: "Habillage de Vitrines & Portes",
     description:
-      "Transformation complète de devantures : films one-way vision, adhésifs polymères longue durée et découpe traceur précise. Impression éco-solvant 1440 DPI avec lamination anti-UV pour une tenue extérieure durable.",
-    tags: [
-      "Lamination Anti-UV",
-      "Impression Éco-Solvant 1440 DPI",
-      "Pose Pro Garantie",
+      "Vitrophanie, adhésifs imprimés et caissons rétroéclairés pour transformer vitrines, portes et murs intérieurs en supports publicitaires.",
+    featured: true,
+    images: [
+      { src: PHOTOS.vitrineRentDrive, alt: "Habillage de vitrine pour ZR Cars, agence de location de voitures" },
+      { src: PHOTOS.porteZrCars, alt: "Porte vitrée habillée pour ZR Cars" },
+      { src: PHOTOS.vitrophanieSport, alt: "Vitrophanie rétroéclairée pour une salle de sport" },
+      { src: PHOTOS.caissonsGymhouse, alt: "Caissons lumineux muraux pour GymHouse Sayada" },
     ],
-    reference: "#VIT-2024-ALK",
-    cta: "Habiller ma Vitrine",
-    ctaVariant: "dark" as const,
   },
-] as const;
-
-export const GRID_WORKS = [
+  {
+    id: "vehicules",
+    category: "habillage",
+    title: "Marquage & Covering de Véhicules Utilitaires",
+    description:
+      "Habillage adhésif de véhicules professionnels : logo, coordonnées et visuels imprimés en haute définition, pour une publicité qui circule partout.",
+    images: [
+      { src: PHOTOS.utilitaireMedAmine, alt: "Marquage adhésif d'un utilitaire — Med Amine Aluminium" },
+    ],
+  },
+  {
+    id: "grand-format",
+    category: "grand-format",
+    title: "Panneaux Publicitaires, Bâches & Stores Imprimés",
+    description:
+      "Impression grand format pour panneaux d'affichage, bâches tendues et stores de façade. Couleurs éclatantes et encres résistantes au soleil.",
+    images: [
+      { src: PHOTOS.panneauEurocar, alt: "Panneau publicitaire grand format pour EuroCar" },
+      { src: PHOTOS.storeRestaurant, alt: "Store imprimé pour le restaurant Ouled El Bacha" },
+    ],
+  },
+  {
+    id: "decoration-murale",
+    category: "grand-format",
+    title: "Décoration Murale Grand Format",
+    description:
+      "Impressions murales grand format pour salles de sport, commerces et espaces d'accueil, mises en valeur par un éclairage LED.",
+    images: [
+      { src: PHOTOS.decorationMuraleSport, alt: "Décoration murale imprimée avec contour LED — Club de sport Sayada" },
+    ],
+  },
   {
     id: "plaques",
-    category: "plaques" as const,
-    kicker: "Cabinets & Cérémonies",
-    title: "Plaques Cabinets, Portes de Bureau & Trophées d'Honneur",
+    category: "plaques",
+    title: "Plaques de Cabinets, Agences & Bureaux",
     description:
-      "Gamme prestige en plexiglas miroir doré et fond bois verni. Réalisation de plaques de cabinets médicaux, notaires et distinctions de reconnaissance.",
-    tags: ["Plexi Or Miroir", "Découpe Laser Micron", "Entretoises Inox"],
-    note: "Personnalisable à l'unité",
-    cta: "Commander",
-    ctaVariant: "red" as const,
-    image: IMG.office,
-    imageAlt: "Plaques professionnelles de cabinet",
+      "Plaques en plexiglas miroir doré ou acrylique imprimé, avec entretoises inox, pour cabinets médicaux, agences et entreprises.",
+    images: [
+      { src: PHOTOS.plaqueDentaire, alt: "Lettres plexi doré miroir pour un cabinet dentaire" },
+      { src: PHOTOS.plaqueGhouila, alt: "Plaque acrylique avec entretoises pour Ghouila Travel" },
+    ],
+  },
+  {
+    id: "trophees",
+    category: "plaques",
+    title: "Trophées & Plaques Commémoratives",
+    description:
+      "Trophées en acrylique et verre imprimés en couleur pour écoles, olympiades et événements, personnalisés avec logos et textes.",
+    images: [
+      { src: PHOTOS.tropheeDoha, alt: "Trophée de participation — École Tunisienne de Doha" },
+      { src: PHOTOS.tropheeDoha2, alt: "Trophée imprimé — vue de détail" },
+    ],
+  },
+  {
+    id: "beach-flags",
+    category: "plv",
+    title: "Beach Flags & Drapeaux Publicitaires",
+    description:
+      "Drapeaux en tissu imprimé avec mât aluminium et socle lesté, pour signaler votre commerce, vos événements et vos ouvertures.",
+    images: [
+      { src: PHOTOS.beachFlags, alt: "Beach flags imprimés pour Shine" },
+    ],
+  },
+  {
+    id: "roll-ups",
+    category: "plv",
+    title: "Roll-ups & Kakémonos",
+    description:
+      "Bannières enroulables imprimées, faciles à transporter et à installer, pour salons, accueils et événements.",
+    images: [
+      { src: PHOTOS.rollUpGhouila, alt: "Roll-up imprimé pour Ghouila Travel et Nizar Ghouila Photography" },
+    ],
+  },
+  {
+    id: "silhouettes",
+    category: "plv",
+    title: "Silhouettes & Personnages Découpés en Forex",
+    description:
+      "Personnages et panneaux découpés à la forme, imprimés en couleur sur PVC Forex, pour l'accueil, les événements ou la sensibilisation sécurité.",
+    images: [
+      { src: PHOTOS.silhouetteClown, alt: "Personnage clown découpé en Forex avec plateau" },
+      { src: PHOTOS.silhouetteSecurite, alt: "Silhouette sécurité découpée en Forex" },
+    ],
+  },
+  {
+    id: "presentoirs",
+    category: "plv",
+    title: "Présentoirs Acryliques & Chevalets QR Code",
+    description:
+      "Présentoirs de comptoir pour avis Google, menus et paiements, et chevalets de table avec QR code imprimé.",
+    images: [
+      { src: PHOTOS.presentoirAvisGoogle, alt: "Présentoir avis Google pour le restaurant Oliveto" },
+      { src: PHOTOS.chevaletsQr, alt: "Chevalets de table acryliques avec QR code" },
+    ],
   },
   {
     id: "journaux",
-    category: "edition" as const,
-    kicker: "Pédagogie • Enseignants",
-    title: "Journaux de Classe Enseignants & Registres Personnalisés",
+    category: "edition",
+    title: "Journaux de Classe & Registres Personnalisés",
     description:
-      "Conception graphique individualisée pour professeurs. Couverture rigide plastifiée mat ou brillant, reliure spirale métallique renforcée et intercalaires par matière.",
-    tags: ["Papier 90g Blanc Satiné", "Couverture Rembordée", "Format A4 / B5"],
-    note: "Tarifs dégressifs écoles",
-    cta: "Devis Lot",
-    ctaVariant: "dark" as const,
-    image: IMG.notebook,
-    imageAlt: "Journal de classe personnalisé",
+      "Journaux et cahiers de préparation pour enseignants, avec couverture personnalisée et reliure spirale renforcée.",
+    images: [
+      { src: PHOTOS.cahierPreparation, alt: "Cahier de préparation des cours personnalisé" },
+    ],
   },
   {
     id: "cahiers",
-    category: "edition" as const,
-    kicker: "Fournitures • Écoles & Instituts",
-    title: "Cahiers de Préparation Pédagogique & Feuilles de TD",
+    category: "edition",
+    title: "Cahiers Scolaires Personnalisés",
     description:
-      "Édition complète de collections scolaires : كراس التمارين، دفتر إعداد الدروس d'établissements avec logos et charte graphique sur mesure.",
-    tags: ["Pliage Métal / Spirale", "Impression Recto-Verso", "Grille personnalisée"],
-    note: "Livraison toute Tunisie",
-    cta: "Télécharger Modèles",
-    ctaVariant: "ghost" as const,
-    image: IMG.school,
-    imageAlt: "Cahiers scolaires personnalisés",
+      "Collections de cahiers pour écoles et instituts : كراس التمارين، دفتر إعداد الدروس, avec logos et charte graphique sur mesure.",
+    images: [
+      { src: PHOTOS.cahiersCollection, alt: "Collection de cahiers scolaires personnalisés" },
+    ],
   },
-] as const;
+  {
+    id: "cartes-visite",
+    category: "impression",
+    title: "Cartes de Visite Personnalisées",
+    description:
+      "Conception et impression de cartes de visite recto-verso, avec QR code, logo et finitions soignées.",
+    images: [
+      { src: PHOTOS.cartesVisite, alt: "Cartes de visite pour Eco-Bio Spirulina" },
+    ],
+  },
+  {
+    id: "etiquettes",
+    category: "impression",
+    title: "Étiquettes & Stickers en Rouleaux",
+    description:
+      "Étiquettes adhésives imprimées et découpées en rouleaux pour vos produits, emballages et bocaux.",
+    images: [
+      { src: PHOTOS.etiquettesBocaux, alt: "Bocaux Bsissa El Kasr avec étiquettes et opercules imprimés" },
+      { src: PHOTOS.etiquettesBsissa, alt: "Étiquettes adhésives en rouleaux pour Bsissa El Kasr" },
+    ],
+  },
+  {
+    id: "textile",
+    category: "textile",
+    title: "T-shirts, Polos & Sweats Personnalisés",
+    description:
+      "Impression de logos et visuels sur polos, t-shirts et sweats pour équipes, commerces, clubs et cadeaux personnalisés.",
+    images: [
+      { src: PHOTOS.polosBigJJ, alt: "Polos personnalisés pour Big JJ" },
+      { src: PHOTOS.sweatHandball, alt: "Sweat à capuche imprimé — handball" },
+    ],
+  },
+  {
+    id: "porte-cles",
+    category: "objets",
+    title: "Porte-clés Personnalisés",
+    description:
+      "Porte-clés en acrylique ou PVC souple à l'image de votre marque, découpés à la forme de votre logo.",
+    images: [
+      { src: PHOTOS.porteCleExpress, alt: "Porte-clé PVC Express Rent a Car" },
+      { src: PHOTOS.porteClesGuerfel, alt: "Porte-clés acryliques Guerfel Achref Rent a Car" },
+      { src: PHOTOS.porteCleAlarabia, alt: "Porte-clé PVC pour Alarabia.com.tn" },
+      { src: PHOTOS.porteClesMario, alt: "Porte-clés acryliques Mario et MK Superette" },
+      { src: PHOTOS.porteClesGymhouse, alt: "Porte-clés acryliques GymHouse Sayada" },
+    ],
+  },
+];
 
 export const MACHINES = [
   {

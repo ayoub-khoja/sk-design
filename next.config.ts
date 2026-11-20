@@ -5,17 +5,16 @@ const nextConfig: NextConfig = {
   turbopack: {
     root: path.resolve(process.cwd()),
   },
-  images: {
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "images.unsplash.com",
-      },
-      {
-        protocol: "https",
-        hostname: "plus.unsplash.com",
-      },
-    ],
+  // L'ancienne page Services a été fusionnée dans Réalisations.
+  async redirects() {
+    return [{ source: "/services", destination: "/realisations", permanent: true }];
+  },
+  experimental: {
+    // Envoi de plusieurs photos (15 Mo max chacune, compressées ensuite) depuis /admin
+    serverActions: {
+      bodySizeLimit: "60mb",
+    },
+    proxyClientMaxBodySize: "60mb",
   },
 };
 

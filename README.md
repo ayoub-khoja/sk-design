@@ -1,14 +1,13 @@
-# SK Design — Site Vitrine
+# SK Design — Site vitrine & espace admin
 
-Site Next.js professionnel pour **SK Design** (impression & publicité, Tunisie).
+Site Next.js de **SK Design** (impression & publicité, Tunisie) avec un espace
+d'administration pour gérer les réalisations.
 
 ## Stack
 
-- **Next.js 16** (App Router) + TypeScript
-- **Tailwind CSS 4**
-- **Framer Motion** (animations d’entrée / hover)
-- **Lucide React** (icônes)
-- **next/image** + Unsplash (visuels HD)
+- **Next.js 16** (App Router) + TypeScript, **Tailwind CSS 4**, Framer Motion
+- **MongoDB Atlas** : réalisations, catégories, compte admin et photos (GridFS)
+- Photos compressées automatiquement en WebP (sharp)
 
 ## Démarrer
 
@@ -17,23 +16,29 @@ npm install
 npm run dev
 ```
 
-Ouvrir [http://localhost:3000](http://localhost:3000).
+Site : <http://localhost:3000> — Admin : <http://localhost:3000/admin>
+
+La configuration de la base (fichier `.env.local`, import du catalogue) est
+expliquée dans [docs/mongodb.md](docs/mongodb.md). Sans base configurée, le site
+affiche le catalogue par défaut de `src/constants/services.ts`.
 
 ## Structure
 
 ```
 src/
-  app/                 # layout + page d’accueil
-  components/
-    layout/            # Header, AnnouncementBar, Footer
-    sections/          # Hero, Configurator, Portfolio, etc.
-    ui/                # Button, Badge, AnimateIn
-  constants/           # contenus & infos contact
-  lib/                 # utilitaires
+  app/(site)/        pages publiques : accueil, réalisations, pages légales
+  app/admin/         espace admin (connexion, réalisations, catégories, compte)
+  app/media/[id]/    photos servies depuis MongoDB
+  components/        sections, mise en page, UI, admin
+  constants/         textes, catégories, catalogue par défaut, photos
+  lib/               accès aux données, MongoDB, session
+scripts/seed.mjs     import du catalogue et des photos dans MongoDB
+public/realisations/ photos d'origine du catalogue par défaut
 ```
 
 ## Scripts
 
 - `npm run dev` — développement
-- `npm run build` — build production
-- `npm run start` — serveur production
+- `npm run build` / `npm run start` — production
+- `npm run lint` — vérification du code
+- `node --env-file=.env.local scripts/seed.mjs` — importer / synchroniser le catalogue

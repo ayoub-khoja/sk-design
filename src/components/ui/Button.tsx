@@ -17,9 +17,9 @@ const variants = {
   primary:
     "bg-brand-600 text-white hover:bg-brand-700 shadow-lg shadow-brand-600/20",
   secondary:
-    "bg-slate-100 text-slate-800 hover:bg-slate-200 border border-slate-200",
+    "bg-zinc-100 text-zinc-900 hover:bg-zinc-200 border border-zinc-200",
   ghost:
-    "bg-transparent text-slate-700 border border-slate-200 hover:bg-slate-50",
+    "bg-white text-zinc-900 border border-zinc-300 hover:border-zinc-950",
   dark: "bg-white/10 text-white border border-white/20 hover:bg-white/15 backdrop-blur",
   whatsapp:
     "bg-[#25D366] text-white hover:bg-[#1ebe57] shadow-lg shadow-emerald-500/20",
@@ -34,6 +34,7 @@ export function Button({
   onClick,
   target,
   rel,
+  "aria-label": ariaLabel,
 }: ButtonProps) {
   const classes = cn(
     "inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-semibold transition-all duration-300 hover:-translate-y-0.5 active:translate-y-0",
@@ -43,14 +44,14 @@ export function Button({
 
   if (href) {
     return (
-      <Link href={href} className={classes} target={target} rel={rel}>
+      <Link href={href} className={classes} target={target} rel={rel} aria-label={ariaLabel}>
         {children}
       </Link>
     );
   }
 
   return (
-    <button type={type} onClick={onClick} className={classes}>
+    <button type={type} onClick={onClick} className={classes} aria-label={ariaLabel}>
       {children}
     </button>
   );

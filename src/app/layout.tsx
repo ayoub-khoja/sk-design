@@ -1,8 +1,5 @@
 import type { Metadata } from "next";
 import { Outfit, Plus_Jakarta_Sans } from "next/font/google";
-import { AnnouncementBar } from "@/components/layout/AnnouncementBar";
-import { Footer } from "@/components/layout/Footer";
-import { Header } from "@/components/layout/Header";
 import { SITE } from "@/constants/site";
 import "./globals.css";
 
@@ -31,6 +28,7 @@ export const metadata: Metadata = {
     siteName: SITE.name,
     locale: "fr_TN",
     type: "website",
+    images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "SK Design — Impression & Publicité" }],
   },
   keywords: [
     "enseigne LED Tunisie",
@@ -53,13 +51,11 @@ export default function RootLayout({
   return (
     <html
       lang="fr"
+      data-scroll-behavior="smooth"
       className={`${plusJakarta.variable} ${outfit.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col font-sans text-slate-900">
-        <AnnouncementBar />
-        <Header />
-        <main className="flex-1">{children}</main>
-        <Footer />
+        {children}
       </body>
     </html>
   );

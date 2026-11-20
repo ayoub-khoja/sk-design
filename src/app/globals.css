@@ -8,6 +8,11 @@
   --brand-500: #e11d2e;
   --brand-600: #c81e1e;
   --brand-700: #a11616;
+  /* Couleurs d'encre du logo (impression CMJN) */
+  --ink-cyan: #1e9be0;
+  --ink-magenta: #e8318a;
+  --ink-yellow: #f6b511;
+  --ink-navy: #1f1b2e;
 }
 
 @theme inline {
@@ -18,6 +23,10 @@
   --color-brand-500: var(--brand-500);
   --color-brand-600: var(--brand-600);
   --color-brand-700: var(--brand-700);
+  --color-ink-cyan: var(--ink-cyan);
+  --color-ink-magenta: var(--ink-magenta);
+  --color-ink-yellow: var(--ink-yellow);
+  --color-ink-navy: var(--ink-navy);
   --font-sans: var(--font-plus-jakarta);
   --font-display: var(--font-outfit);
 }
@@ -44,4 +53,38 @@ body {
 .arabic {
   font-family: "Segoe UI", Tahoma, "Noto Naskh Arabic", sans-serif;
   direction: rtl;
+}
+
+/* Espace admin : champs de formulaire */
+@layer components {
+  .admin-input {
+    @apply block w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 shadow-sm outline-none transition placeholder:text-slate-400 focus:border-zinc-900 focus:ring-2 focus:ring-zinc-900/10;
+  }
+  .admin-label {
+    @apply text-sm font-medium text-slate-700;
+  }
+  .admin-card {
+    @apply rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6;
+  }
+}
+
+/* Bandeau défilant des clients */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+/* Ruban 4 couleurs (rappel des encres du logo) */
+.ink-ribbon {
+  background: linear-gradient(
+    to right,
+    var(--ink-yellow) 0 25%,
+    var(--ink-magenta) 25% 50%,
+    var(--ink-cyan) 50% 75%,
+    var(--brand-600) 75% 100%
+  );
 }
