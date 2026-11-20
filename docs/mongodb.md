@@ -11,7 +11,7 @@ avec le catalogue de `src/constants/services.ts`.
 
 | Qui | Comment | Pour quoi faire |
 |---|---|---|
-| Le client (admin) | `https://skdesign.tn/admin` + email / mot de passe | Ajouter, modifier, supprimer réalisations, catégories et photos |
+| Le client (admin) | `https://www.skdesign.tn/admin` + email / mot de passe | Ajouter, modifier, supprimer réalisations, catégories et photos |
 | Les développeurs | Site **MongoDB Atlas** → *Browse Collections* | Voir ou corriger les données, sauvegardes |
 | Les développeurs | Logiciel **MongoDB Compass** (gratuit) | Pareil, depuis le PC |
 | Le site | Variable `MONGODB_URI` | Lire le catalogue et enregistrer les modifications |
